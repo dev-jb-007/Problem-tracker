@@ -21,8 +21,8 @@
             </form>
         </div>
     </nav>
-    <div id="total-progress">
-      <div style="margin: auto;" class="spinner-border text-primary" role="status">
+    <div style="margin: 30px auto 30px auto;width: 100%;height: 100px;"id="total-progress">
+      <div style="margin: auto;position: relative;left: 50%;" class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
@@ -32,8 +32,13 @@
       </p>
       <div class="row">
         <div class="col">
-          <div class="collapse multi-collapse" id="multiCollapseExample1">
-            <div class="card card-body">
+          <div class="collapse multi-collapse" id="multiCollapseExample1" style="position: relative;">
+            <div class="loader-timer" style="position: absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:0;">
+              <div style="margin: auto;" class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+            <div class="card card-body timer-card">
                 <div>
                     <select class="form-select" aria-label="Default select example" id="problem-timer-select" onchange="startOptionAvalaible()">
                       </select>
@@ -81,6 +86,8 @@
                     <option value="LeetCode">LeetCode</option>
                     <option value="CSES">CSES</option>
                     <option value="HackerRank">HackerRank</option>
+                    <option value="GeeksForGeeks">GeeksForGeeks</option>
+                    <option value="DSA">DSA</option>
                 </select>
                 <input class="form-control" type="text" placeholder="Link:" aria-label="default input example" id="link">
                 <button type="button" class="btn btn-primary" onclick="SubmitProblem()">Add</button>
@@ -97,9 +104,7 @@
             <div id="Progress">
             </div>
             <div class="list-group">
-              <div style="margin: auto;" class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
+
             </div>
       </div>
 </body>

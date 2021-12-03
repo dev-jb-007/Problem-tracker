@@ -78,10 +78,15 @@ async function SubmitProblem(){
                 <button type="button" class="btn btn-primary" onclick="SubmitProblem()">Add</button>`
     today();
     fetchProblem();
+    timerProblems();
 }
 
 async function fetchProblem(){
     const date=document.getElementById('date-picker').value;
+    document.querySelector('.list-group').innerHTML=`
+    <div style="margin: auto;" class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>`;
     console.log(date);
     const buffer=await fetch('/problems',{
         method:'POST',
@@ -139,10 +144,6 @@ function goToSearchPage(){
 }
 function displayActivity(array){
     const div=document.querySelector('.list-group');
-    div.innerHTML=`
-    <div class="spinner-border text-primary" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>`;
     let html='';
     let clas;
     let notStarted=-0,pending=0,done=0,solving=0;
@@ -211,6 +212,7 @@ async function deleteProblem(id)
     today();
     fetchProblem();
     showTotalProgress();
+    timerProblems();
 }
 let timeStarted=0;
 let startedProblem;
@@ -244,8 +246,11 @@ async function timerStopped(){
     if(div=="0"||div!=startedProblem)
     {
         alert('First Start A Problem');
+        
     }
     else{
+        document.querySelector('.loader-timer').style.zIndex=10;
+        document.querySelector('.timer-card').style.opacity=0;
         let temp=new Date().getTime();
         console.log(timeStarted);
         console.log(temp);
@@ -263,6 +268,8 @@ async function timerStopped(){
         today();
         fetchProblem();
         const ans=await buffer.json();
+        document.querySelector('.loader-timer').style.zIndex=0;
+        document.querySelector('.timer-card').style.opacity=1;
         console.log(ans);
     }
 }
@@ -284,6 +291,8 @@ async function Done(){
         alert('First Start A Problem');
     }
     else{
+        document.querySelector('.loader-timer').style.zIndex=10;
+        document.querySelector('.timer-card').style.opacity=0;
         const buffer=await fetch('/problemDone',{
             method:'POST',
             headers:{
@@ -293,7 +302,10 @@ async function Done(){
         })
         today();
         fetchProblem();
+        timerProblems();
         const ans=await buffer.json();
+        document.querySelector('.timer-card').style.opacity=1;
+        document.querySelector('.loader-timer').style.zIndex=0;
         console.log(ans);
     }
 }
